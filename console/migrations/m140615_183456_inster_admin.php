@@ -1,7 +1,5 @@
 <?php
 
-use yii\db\Schema;
-
 class m140615_183456_inster_admin extends \yii\db\Migration
 {
     public function up()

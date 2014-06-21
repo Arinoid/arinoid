@@ -2,7 +2,7 @@
 
 namespace frontend\tests\_pages;
 
-use \yii\codeception\BasePage;
+use yii\codeception\BasePage;
 
 class SignupPage extends BasePage
 {

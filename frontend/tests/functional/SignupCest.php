@@ -2,8 +2,8 @@
 
 namespace frontend\tests\functional;
 
-use frontend\tests\_pages\SignupPage;
 use common\models\User;
+use frontend\tests\_pages\SignupPage;
 
 class SignupCest
 {
@@ -39,7 +39,7 @@ class SignupCest
 
     /**
      *
-     * @param \TestGuy              $I
+     * @param \TestGuy $I
      * @param \Codeception\Scenario $scenario
      */
     public function testUserSignup($I, $scenario)
@@ -61,9 +61,9 @@ class SignupCest
 
         $I->amGoingTo('submit signup form with not correct email');
         $signupPage->submit([
-            'username'		=>	'tester',
-            'email'			=>	'tester.email',
-            'password'		=>	'tester_password',
+            'username' => 'tester',
+            'email' => 'tester.email',
+            'password' => 'tester_password',
         ]);
 
         $I->expectTo('see that email address is wrong');
@@ -73,15 +73,15 @@ class SignupCest
 
         $I->amGoingTo('submit signup form with correct email');
         $signupPage->submit([
-            'username'		=>	'tester',
-            'email'			=>	'tester.email@example.com',
-            'password'		=>	'tester_password',
+            'username' => 'tester',
+            'email' => 'tester.email@example.com',
+            'password' => 'tester_password',
         ]);
 
         $I->expectTo('see that user is created');
         $I->seeRecord('common\models\User', [
-            'username'		=>	'tester',
-            'email'			=>	'tester.email@example.com',
+            'username' => 'tester',
+            'email' => 'tester.email@example.com',
         ]);
 
         $I->expectTo('see that user logged in');

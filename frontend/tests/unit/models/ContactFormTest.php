@@ -2,9 +2,9 @@
 
 namespace frontend\tests\unit\models;
 
-use Yii;
-use frontend\tests\unit\TestCase;
 use frontend\models\ContactForm;
+use frontend\tests\unit\TestCase;
+use Yii;
 
 class ContactFormTest extends TestCase
 {

@@ -37,7 +37,7 @@ class SignupCest
     }
 
     /**
-     * @param \WebGuy               $I
+     * @param \WebGuy $I
      * @param \Codeception\Scenario $scenario
      */
     public function testUserSignup($I, $scenario)
@@ -59,9 +59,9 @@ class SignupCest
 
         $I->amGoingTo('submit signup form with not correct email');
         $signupPage->submit([
-            'username'		=>	'tester',
-            'email'			=>	'tester.email',
-            'password'		=>	'tester_password',
+            'username' => 'tester',
+            'email' => 'tester.email',
+            'password' => 'tester_password',
         ]);
 
         $I->expectTo('see that email address is wrong');
@@ -71,9 +71,9 @@ class SignupCest
 
         $I->amGoingTo('submit signup form with correct email');
         $signupPage->submit([
-            'username'		=>	'tester',
-            'email'			=>	'tester.email@example.com',
-            'password'		=>	'tester_password',
+            'username' => 'tester',
+            'email' => 'tester.email@example.com',
+            'password' => 'tester_password',
         ]);
 
         $I->expectTo('see that user logged in');
