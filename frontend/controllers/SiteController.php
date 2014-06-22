@@ -71,50 +71,51 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-
         $uri = Yii::$app->request->get('uri');
         $uri = trim($uri);
 
-        if (strpos($uri, 'http') === false) {
-            $uri = 'http://' . $uri;
-        }
-
-        $exist = Uri::findOne(['uri' => $uri]);
-
-        if ($exist == NULL) {
-            $uriId = Security::generateRandomKey(5);
-            $existId = Uri::findOne(['uri_id' => $uriId]);
-
-            $inc = 0;
-            while ($existId != NULL) {
-                $uriId = Security::generateRandomKey(5);
-                $existId = Uri::findOne(['uri_id' => $uriId]);
-                $inc++;
-
-                if ($inc > 300) {
-                    throw new HttpException(400, 'Bad request');
-                }
+        if ($uri != '') {
+            if (strpos($uri, 'http') === false) {
+                $uri = 'http://' . $uri;
             }
 
-            $currentTime = time();
+            $exist = Uri::findOne(['uri' => $uri]);
 
-            //TODO: check script repeating
-            if ($inc > 0) {
-                $model = new ScriptTest();
+            if ($exist == NULL) {
+                $uriId = Security::generateRandomKey(5);
+                $existId = Uri::findOne(['uri_id' => $uriId]);
 
-                $model->try = $inc;
+                $inc = 0;
+                while ($existId != NULL) {
+                    $uriId = Security::generateRandomKey(5);
+                    $existId = Uri::findOne(['uri_id' => $uriId]);
+                    $inc++;
+
+                    if ($inc > 300) {
+                        throw new HttpException(400, 'Bad request');
+                    }
+                }
+
+                $currentTime = time();
+
+                //TODO: check script repeating
+                if ($inc > 0) {
+                    $model = new ScriptTest();
+
+                    $model->try = $inc;
+                    $model->created_at = $currentTime;
+
+                    $model->save();
+                }
+
+                $model = new Uri();
+
+                $model->uri = $uri;
+                $model->uri_id = $uriId;
                 $model->created_at = $currentTime;
 
                 $model->save();
             }
-
-            $model = new Uri();
-
-            $model->uri = $uri;
-            $model->uri_id = $uriId;
-            $model->created_at = $currentTime;
-
-            $model->save();
         }
 
         return $this->render('index');
