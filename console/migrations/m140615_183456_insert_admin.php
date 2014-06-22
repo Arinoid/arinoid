@@ -1,6 +1,6 @@
 <?php
 
-class m140615_183456_inster_admin extends \yii\db\Migration
+class m140615_183456_insert_admin extends \yii\db\Migration
 {
     public function up()
     {
