@@ -70,6 +70,13 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    public function actionRedirect()
+    {
+        $uri = ltrim($_SERVER['REQUEST_URI'], '/');
+
+        return $this->render('index');
+    }
+
     public function actionLogin()
     {
         if (!\Yii::$app->user->isGuest) {

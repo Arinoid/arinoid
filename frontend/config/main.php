@@ -28,6 +28,15 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'urlManager' => [
+            'showScriptName' => false,
+            'enablePrettyUrl' => true,
+            'rules' => [
+                'index' => 'site/index',
+                'site' => 'site/index',
+                '<uri:\w{4,5}>' => 'site/redirect',
+            ],
+        ],
     ],
     'params' => $params,
 ];
