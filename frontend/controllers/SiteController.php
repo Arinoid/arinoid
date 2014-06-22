@@ -10,12 +10,16 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use yii\base\InvalidParamException;
+use yii\helpers\BaseUrl;
+use yii\helpers\Json;
+use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\helpers\Security;
 use yii\web\HttpException;
+use yii\web\Request;
 
 /**
  * Site controller
@@ -69,11 +73,12 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionIndex()
+    public function actionShort()
     {
-        $uri = Yii::$app->request->get('uri');
+        $uri = Yii::$app->request->post('uri');
         $uri = trim($uri);
 
+        $uriId = NULL;
         if ($uri != '') {
             if (strpos($uri, 'http') === false) {
                 $uri = 'http://' . $uri;
@@ -115,9 +120,21 @@ class SiteController extends Controller
                 $model->created_at = $currentTime;
 
                 $model->save();
+            } else {
+                $uriId = $exist->uri_id;
             }
         }
 
+        $response = [
+            'site' => Url::base(true),
+            'uri' => $uriId
+        ];
+
+        return Json::encode($response);
+    }
+
+    public function actionIndex()
+    {
         return $this->render('index');
     }
 
@@ -128,10 +145,8 @@ class SiteController extends Controller
         $exist = Uri::findOne(['uri_id' => $uriId]);
 
         if ($exist) {
-
             $this->redirect($exist->uri);
         }
-
 
         return $this->render('index');
     }
