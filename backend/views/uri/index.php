@@ -1,25 +1,25 @@
 <?php
 
-use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\grid\GridView;
 
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
- * @var common\models\User $searchModel
+ * @var common\models\Uri $searchModel
  */
 
-$this->title = 'Users';
+$this->title = 'Uris';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-index">
+<div class="uri-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Uri', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?=
@@ -30,15 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'username',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
-            // 'email:email',
-            // 'role',
-            // 'status',
-            // 'created_at',
-            // 'updated_at',
+            'uri',
+            'uri_id',
+            'created_at',
+            'public',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

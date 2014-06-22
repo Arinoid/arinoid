@@ -5,19 +5,21 @@ use yii\widgets\DetailView;
 
 /**
  * @var yii\web\View $this
- * @var common\models\User $model
+ * @var common\models\Uri $model
  */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Uris', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-view">
+<div class="uri-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?=
+        Html::a('Update', ['update', 'id' => $model->id], ['class' =>
+            'btn btn-primary']) ?>
         <?=
         Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -33,15 +35,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'username',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
-            'email:email',
-            'role',
-            'status',
+            'uri',
+            'uri_id',
             'created_at',
-            'updated_at',
+            'public',
         ],
     ]) ?>
 

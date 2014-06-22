@@ -3,6 +3,8 @@ namespace frontend\controllers;
 
 use Yii;
 use common\models\LoginForm;
+use common\models\Uri;
+use common\models\ScriptTest;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -12,6 +14,8 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\Security;
+use yii\web\HttpException;
 
 /**
  * Site controller
@@ -67,12 +71,66 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+
+        $uri = Yii::$app->request->get('uri');
+        $uri = trim($uri);
+
+        if (strpos($uri, 'http') === false) {
+            $uri = 'http://' . $uri;
+        }
+
+        $exist = Uri::findOne(['uri' => $uri]);
+
+        if ($exist == NULL) {
+            $uriId = Security::generateRandomKey(5);
+            $existId = Uri::findOne(['uri_id' => $uriId]);
+
+            $inc = 0;
+            while ($existId != NULL) {
+                $uriId = Security::generateRandomKey(5);
+                $existId = Uri::findOne(['uri_id' => $uriId]);
+                $inc++;
+
+                if ($inc > 300) {
+                    throw new HttpException(400, 'Bad request');
+                }
+            }
+
+            $currentTime = time();
+
+            //TODO: check script repeating
+            if ($inc > 0) {
+                $model = new ScriptTest();
+
+                $model->try = $inc;
+                $model->created_at = $currentTime;
+
+                $model->save();
+            }
+
+            $model = new Uri();
+
+            $model->uri = $uri;
+            $model->uri_id = $uriId;
+            $model->created_at = $currentTime;
+
+            $model->save();
+        }
+
         return $this->render('index');
     }
 
     public function actionRedirect()
     {
-        $uri = ltrim($_SERVER['REQUEST_URI'], '/');
+        $uriId = ltrim($_SERVER['REQUEST_URI'], '/');
+
+        $exist = Uri::findOne(['uri_id' => $uriId]);
+
+        if ($exist) {
+
+            $this->redirect($exist->uri);
+        }
+
 
         return $this->render('index');
     }
