@@ -59,10 +59,11 @@ GETTING STARTED
 After you install the application, you have to conduct the following steps to initialize
 the installed application. You only need to do these once for all.
 
-1. Run command `init` to initialize the application with a specific environment.
-2. Create a new database `arinoid`.
-3. Apply migrations with console command `yii migrate`. This will create tables needed for the application to work.
-4. Set document roots of your Web server:
+1. Run command `composer update` to update vendor folder.
+2. Run command `init` to initialize the application with a specific environment.
+3. Create a new database `arinoid`.
+4. Apply migrations with console command `yii migrate`. This will create tables needed for the application to work.
+5. Set document roots of your Web server:
 
 - for frontend `/path/to/yii-application/frontend/web/` and using the URL `http://arinoid.local/`
 - for backend `/path/to/yii-application/backend/web/` and using the URL `http://admin.arinoid.local/`
