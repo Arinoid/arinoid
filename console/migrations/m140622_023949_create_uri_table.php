@@ -13,7 +13,7 @@ class m140622_023949_create_uri_table extends \yii\db\Migration
 
         $this->createTable('{{%uri}}', [
             'id' => Schema::TYPE_PK,
-            'uri' => Schema::TYPE_STRING . ' NOT NULL',
+            'uri' => Schema::TYPE_TEXT . ' NOT NULL',
             'uri_id' => Schema::TYPE_STRING . ' NOT NULL',
             'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
             'public' => Schema::TYPE_BOOLEAN . ' NOT NULL DEFAULT TRUE',
