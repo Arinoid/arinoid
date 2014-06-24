@@ -119,10 +119,7 @@ class SiteController extends Controller
                 $model->uri_id = $uriId;
                 $model->created_at = $currentTime;
 
-                if (!$model->save()) {
-                    var_dump($model->getErrors());
-                    $uriId = null;
-                }
+                $model->save();
             } else {
                 $uriId = $exist->uri_id;
             }
