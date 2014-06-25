@@ -32,7 +32,7 @@ class Uri extends ActiveRecord
     {
         return [
             [['uri', 'uri_id', 'created_at'], 'required'],
-            [['uri'], 'string'],
+            [['uri'], 'string', 'max' => 2048],
             [['created_at', 'public'], 'integer'],
             [['uri_id'], 'string', 'max' => 255]
         ];
