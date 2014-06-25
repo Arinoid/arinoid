@@ -8,7 +8,8 @@ $this->title = 'Arinoid | Shorten URL';
     <form id="short_form" class="form-inline text-center">
         <div class="form-group">
             <label class="sr-only" for="link">URL</label>
-            <input name="uri" type="text" class="form-control" size="50" id="uri" placeholder="Enter link">
+            <input name="uri" type="text" class="form-control" autocomplete="off" size="50" id="uri"
+                   placeholder="Enter link">
         </div>
         <button type="submit" class="btn btn-default">Shorten URL</button>
 
