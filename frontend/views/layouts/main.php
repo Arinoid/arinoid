@@ -24,9 +24,9 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 <div class="wrap">
-    <div class="main-bookmark">
+    <div id="main-bookmark">
         <?php if (Yii::$app->user->isGuest) {
-            echo Html::a('Login', 'site/login');
+            echo Html::a('Login', '#', ['id' => 'login']);
         } else {
             echo Html::a('Logout', 'site/logout', ['data-method' => 'post']);
         }

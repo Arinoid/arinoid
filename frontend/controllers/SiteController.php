@@ -20,6 +20,9 @@ use yii\filters\AccessControl;
 use yii\helpers\Security;
 use yii\web\HttpException;
 use yii\web\Request;
+use yii\widgets\ActiveForm;
+use yii\web\Response;
+use PHPQRCode\QRcode;
 
 /**
  * Site controller
@@ -127,7 +130,8 @@ class SiteController extends Controller
 
         $response = [
             'site' => Url::base(true),
-            'uri' => $uriId
+            'uri' => $uriId,
+            'qrcode' => $uriId . '.png',
         ];
 
         return Json::encode($response);
@@ -135,12 +139,24 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $model = new LoginForm();
+
+        if (Yii::$app->request->isAjax) {
+            $model->load(Yii::$app->request->post());
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        } elseif ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->goBack();
+        } else {
+            return $this->render('index', [
+                'model' => $model,
+            ]);
+        }
     }
 
     public function actionRedirect()
     {
-        $uriId = ltrim($_SERVER['REQUEST_URI'], '/');
+        $uriId = Yii::$app->request->get('uriId');
 
         $exist = Uri::findOne(['uri_id' => $uriId]);
 
@@ -149,6 +165,19 @@ class SiteController extends Controller
         }
 
         return $this->render('index');
+    }
+
+    public function actionQrcode()
+    {
+        $uriId = Yii::$app->request->get('uriId');
+
+        $exist = Uri::findOne(['uri_id' => $uriId]);
+
+        if ($exist) {
+            return QRcode::png(Url::base(true) . "/" . $exist->uri_id, false, 'L', 4, 3);
+        }
+
+        return false;
     }
 
     public function actionLogin()

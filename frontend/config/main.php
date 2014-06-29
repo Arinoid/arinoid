@@ -34,7 +34,8 @@ return [
             'rules' => [
                 'index' => 'site/index',
                 'site' => 'site/index',
-                '<uri:\w{4,5}>' => 'site/redirect',
+                '<uriId:\w{4,5}>' => 'site/redirect',
+                '<uriId:\w{4,5}>.png' => 'site/qrcode',
             ],
         ],
     ],
