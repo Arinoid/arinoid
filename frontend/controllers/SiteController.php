@@ -5,6 +5,7 @@ use Yii;
 use common\models\LoginForm;
 use common\models\Uri;
 use common\models\ScriptTest;
+use common\models\Bookmark;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -37,15 +38,14 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
                 'rules' => [
                     [
-                        'actions' => ['signup'],
+                        'actions' => ['index'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout', 'bookmark'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -82,12 +82,15 @@ class SiteController extends Controller
         $uri = trim($uri);
 
         $uriId = NULL;
+
         if ($uri != '') {
             if (strpos($uri, 'http') === false) {
                 $uri = 'http://' . $uri;
             }
 
             $exist = Uri::findOne(['uri' => $uri]);
+
+            $id = NULL;
 
             if ($exist == NULL) {
                 $uriId = Security::generateRandomKey(5);
@@ -110,21 +113,46 @@ class SiteController extends Controller
                 if ($inc > 0) {
                     $model = new ScriptTest();
 
-                    $model->try = $inc;
-                    $model->created_at = $currentTime;
+                    $model->setAttributes([
+                        'try' => $inc,
+                        'created_at' => $currentTime,
+                    ]);
 
                     $model->save();
                 }
 
                 $model = new Uri();
 
-                $model->uri = $uri;
-                $model->uri_id = $uriId;
-                $model->created_at = $currentTime;
+                $model->setAttributes([
+                    'uri' => $uri,
+                    'uri_id' => $uriId,
+                    'created_at' => $currentTime,
+                ]);
 
                 $model->save();
+
+                $id = $model->id;
             } else {
                 $uriId = $exist->uri_id;
+
+                $id = $exist->id;
+            }
+
+            if ($id && !Yii::$app->user->isGuest) {
+
+                $exist = Bookmark::findOne(['uri_id' => $id, 'user_id' => Yii::$app->user->getId()]);
+
+                if (!$exist) {
+                    $modelBookmark = new Bookmark();
+
+                    $modelBookmark->setAttributes([
+                        'uri_id' => $id,
+                        'user_id' => Yii::$app->user->getId(),
+                        'created_at' => time(),
+                    ]);
+
+                    $modelBookmark->save();
+                }
             }
         }
 
@@ -182,18 +210,19 @@ class SiteController extends Controller
 
     public function actionLogin()
     {
-        if (!\Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
-        }
+// TODO: refactor site/login
+//        if (!\Yii::$app->user->isGuest) {
+//            return $this->goHome();
+//        }
+//
+//        $model = new LoginForm();
+//        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+//            return $this->goBack();
+//        } else {
+//            return $this->render('login', [
+//                'model' => $model,
+//            ]);
+//        }
     }
 
     public function actionLogout()
@@ -277,6 +306,17 @@ class SiteController extends Controller
 
         return $this->render('resetPassword', [
             'model' => $model,
+        ]);
+    }
+
+    public function actionBookmark()
+    {
+        $searchModel = new Bookmark();
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+
+        return $this->render('bookmark', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
         ]);
     }
 }

@@ -53,21 +53,6 @@ $this->title = 'Arinoid | Shorten URL';
             <span>&times;</span><span class="sr-only">Close</span>
         </button>
     </div>
-<?php else: ?>
-    <div id="main-menu-popup" class="background-color-6-cyan">
-        <span class="glyphicon glyphicon-list"></span>
-    </div>
-    <div id="main-menu" class="background-color-6-cyan">
-        <div id="main-menu-avatar"></div>
-        <ul class="list-group">
-            <li class="list-group-item-text"><span class="glyphicon glyphicon-user"></span>Profile</li>
-            <li class="list-group-item-text"><a href="/"><span class="glyphicon glyphicon-link"></span>Shorten</a>
-            </li>
-            <li class="list-group-item-text"><span class="glyphicon glyphicon-bookmark"></span>Bookmarks</li>
-            <li class="list-group-item-text"><span class="glyphicon glyphicon-tags"></span>Tags</li>
-            <li class="list-group-item-text"><span class="glyphicon glyphicon-cog"></span>Settings</li>
-        </ul>
-    </div>
 <?php endif; ?>
 
 <img src="" alt=""/>

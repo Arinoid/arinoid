@@ -15,6 +15,7 @@ return [
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
+            'loginUrl' => '/',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -34,6 +35,7 @@ return [
             'rules' => [
                 'index' => 'site/index',
                 'site' => 'site/index',
+                'bookmark' => 'site/bookmark',
                 '<uriId:\w{4,5}>' => 'site/redirect',
                 '<uriId:\w{4,5}>.png' => 'site/qrcode',
             ],
