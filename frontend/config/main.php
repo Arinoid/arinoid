@@ -36,6 +36,7 @@ return [
                 'index' => 'site/index',
                 'site' => 'site/index',
                 'bookmark' => 'site/bookmark',
+                'logout' => 'site/logout',
                 '<uriId:\w{4,5}>' => 'site/redirect',
                 '<uriId:\w{4,5}>.png' => 'site/qrcode',
             ],

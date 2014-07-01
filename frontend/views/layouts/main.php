@@ -28,7 +28,7 @@ AppAsset::register($this);
         <?php if (Yii::$app->user->isGuest) {
             echo Html::a('Login', '#', ['id' => 'login']);
         } else {
-            echo Html::a('Logout', 'site/logout', ['data-method' => 'post']);
+            echo Html::a('Logout', 'logout', ['data-method' => 'post']);
         }
         ?>
     </div>
