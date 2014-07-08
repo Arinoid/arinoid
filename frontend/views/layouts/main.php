@@ -5,6 +5,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use frontend\widgets\Alert;
+use frontend\widgets\Menu;
 
 /**
  * @var \yii\web\View $this
@@ -43,23 +44,17 @@ AppAsset::register($this);
 </div>
 
 <?php if (!Yii::$app->user->isGuest): ?>
-    <div id="main-menu-popup" class="background-color-6-cyan">
-        <span class="glyphicon glyphicon-list"></span>
-    </div>
-    <div id="main-menu" class="background-color-6-cyan">
-        <div id="main-menu-avatar"></div>
-        <ul class="list-group">
-            <li class="list-group-item-text"><span class="glyphicon glyphicon-user"></span>Profile</li>
-            <li class="list-group-item-text">
-                <a href="/"><span class="glyphicon glyphicon-link"></span>Shorten URL</a>
-            </li>
-            <li class="list-group-item-text">
-                <a href="/bookmark"><span class="glyphicon glyphicon-bookmark"></span>Bookmarks</a>
-            </li>
-            <li class="list-group-item-text"><span class="glyphicon glyphicon-tags"></span>Tags</li>
-            <li class="list-group-item-text"><span class="glyphicon glyphicon-cog"></span>Settings</li>
-        </ul>
-    </div>
+    <?=
+    Menu::widget([
+        'items' => [
+            ['label' => 'Profile', 'url' => 'profile', 'icon' => 'user'],
+            ['label' => 'Shorten URL', 'url' => '/', 'icon' => 'link'],
+            ['label' => 'Bookmarks', 'url' => 'bookmark', 'icon' => 'bookmark'],
+            ['label' => 'Tags', 'url' => 'tags', 'icon' => 'tags'],
+            ['label' => 'Settings', 'url' => 'settings', 'icon' => 'cog'],
+        ]
+    ])
+    ?>
 <?php endif; ?>
 
 <?php $this->endBody() ?>

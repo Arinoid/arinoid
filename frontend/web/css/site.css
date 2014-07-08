@@ -232,6 +232,11 @@ a.desc:after {
     background-color: #37E5F0;
 }
 
+#main-menu a.active {
+    color: #0EC9D0;
+    background-color: #FFFFFF;
+}
+
 #main-menu li span {
     margin: 0 5px;
     padding: 5px 0;
