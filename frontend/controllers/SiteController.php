@@ -307,12 +307,28 @@ class SiteController extends Controller
 
     public function actionBookmark()
     {
-        $searchModel = new Bookmark();
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        return $this->render('bookmark');
+    }
 
-        return $this->render('bookmark', [
-            'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel,
-        ]);
+    public function actionGetBookmark()
+    {
+        $bookmarks = Bookmark::find()->orderBy('id desc')
+            ->where('id>0')->all();
+
+        $return = [];
+        /** @var $bookmark Bookmark */
+        foreach ($bookmarks as $bookmark) {
+            $uri = Uri::findOne($bookmark->uri_id);
+
+            $return[] = [
+                'id' => $bookmark->id,
+                'created_at' => $bookmark->created_at,
+                'uri_id' => $uri->uri_id,
+                'uri' => $uri->uri,
+                'title' => $bookmark->title,
+                'description' => $bookmark->description,
+            ];
+        }
+        return Json::encode($return);
     }
 }

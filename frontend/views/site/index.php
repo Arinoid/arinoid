@@ -8,22 +8,27 @@ use yii\widgets\ActiveForm;
 $this->title = 'Arinoid | Shorten URL';
 ?>
     <div class="col-md-6 col-md-offset-3">
-        <form id="short_form" class="form-inline">
-            <div class="form-group">
+        <form id="short_form" class="row">
+            <div class="col-md-9">
                 <label class="sr-only" for="link">URL</label>
 
-                <input name="uri" type="text" class="form-control" size="40" autocomplete="off" id="uri"
+                <input name="uri" type="text" class="form-control" autocomplete="off" id="uri"
                        placeholder="Enter link">
             </div>
-            <button type="submit" class="btn btn-default">Shorten URL</button>
-
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-default">Shorten URL</button>
+            </div>
         </form>
-        <div id="main-response">
-            <?php //TODO: add design, copy to clipboard, qr-code ?>
+    </div>
+
+    <div class="col-md-6 col-md-offset-3" id="main-response">
+        <div class="col-md-12">
+        <?php //TODO: add design, copy to clipboard, qr-code ?>
             <a href="" id="short_uri" target="_blank"></a>
             <img id="qrcode" src="" alt="Loading"/>
         </div>
     </div>
+
 
 <?php if (Yii::$app->user->isGuest): ?>
     <div id="login-popup" class="background-color-5-aquamarine">

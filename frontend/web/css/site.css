@@ -4,11 +4,11 @@ body {
 }
 
 a {
-    color: #FFFFFF;
+    color: #0EC9D0;
 }
 
 a:hover {
-    color: #EEEEEE;
+    color: #0EC9D0;
 }
 
 .wrap {
@@ -32,6 +32,10 @@ a:hover {
 .jumbotron {
     text-align: center;
     background-color: transparent;
+}
+
+.btn {
+    padding: 6px 14px;
 }
 
 .jumbotron .btn {
@@ -107,6 +111,10 @@ a.desc:after {
     padding: 30px 5px 0 0;
     text-align: center;
     background: url("../img/bookmark.png") no-repeat;
+}
+
+#main-bookmark a {
+    color: #FFFFFF;
 }
 
 /* Palette begin */
@@ -226,6 +234,7 @@ a.desc:after {
 
 #main-menu a {
     display: block;
+    color: #FFFFFF;
 }
 
 #main-menu a:hover {
@@ -243,14 +252,35 @@ a.desc:after {
 }
 
 #main-response {
+    margin-top: 5px;
     display: none;
 }
 
-#main-response a {
-    color: #0EC9D0;
+#main-response > div {
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
 }
 
 #qrcode {
     width: 124px;
     height: 124px;
+}
+
+.bookmark-element {
+    height: 93px;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.grab-text {
+    background-image: -webkit-linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #FFFFFF 45%, #FFFFFF 100%);
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #FFFFFF 45%, #FFFFFF 100%);
+    margin-left: -25px;
+    pointer-events: none;
+    float: left;
+    clear: right;
+    height: 20px;
+    width: 70px;
 }

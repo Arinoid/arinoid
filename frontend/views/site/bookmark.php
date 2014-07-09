@@ -12,18 +12,9 @@ use yii\grid\GridView;
 $this->title = 'Arinoid | Bookmarks';
 ?>
 
-<?=
-GridView::widget([
-    'dataProvider' => $dataProvider,
-    'filterModel' => $searchModel,
-    'columns' => [
-        ['class' => 'yii\grid\SerialColumn'],
-
-        'id',
-        'uri_id',
-        'user_id',
-        'created_at',
-
-        ['class' => 'yii\grid\ActionColumn'],
-    ],
-]); ?>
+<div id="bookmark-table">
+    <div class="bookmark-element">
+        <img src="" width="144" height="81">
+        Title: Google | Date: 2014-07-09 | http://google.com
+    </div>
+</div>

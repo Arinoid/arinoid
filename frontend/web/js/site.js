@@ -45,3 +45,32 @@ $("#main-menu").mouseleave(function () {
     $(this).hide();
     $("#main-menu-popup").show();
 });
+
+$(function () {
+    if ($("#bookmark-table").length) {
+
+        var json = {};
+
+        $.get("site/get-bookmark", json)
+            .done(function (data) {
+                var obj = $.parseJSON(data);
+
+                $.each(obj, function (key, val) {
+                    console.log(val);
+
+                    var div = $("<div>");
+
+                    var grab_text = $("<div>");
+
+                    grab_text.addClass('grab-text');
+
+                    var a = $("<a>");
+                    a.addClass('color-6-cyan').attr('style', 'float:left;display:block;width:250px;white-space: nowrap;overflow: hidden;').html(val.uri).attr('href', val.uri);
+
+                    div.addClass().html(val.created_at + ' | ').append(a).append(grab_text);
+                    $("#bookmark-table").append(div);
+                });
+            });
+
+    }
+});
