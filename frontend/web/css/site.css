@@ -199,7 +199,7 @@ a.desc:after {
 }
 
 #main-menu-popup {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 60px;
@@ -215,7 +215,7 @@ a.desc:after {
 }
 
 #main-menu {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 200px;
@@ -266,12 +266,43 @@ a.desc:after {
     height: 124px;
 }
 
+#bookmark-element {
+    display: none;
+}
+
 .bookmark-element {
     height: 93px;
     border: 1px solid #CCCCCC;
     border-radius: 4px;
     padding: 5px;
     margin-bottom: 5px;
+}
+
+.bookmark-element > div {
+    float: left;
+    margin-right: 5px;
+}
+
+.bookmark-element-title {
+    float: left;
+    width: 200px;
+    height: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.bookmark-element-date {
+    margin-top: 5px;
+    font-size: 11px;
+    color: #CCCCCC;
+}
+
+.bookmark-element-link {
+    display: block;
+    float: left;
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .grab-text {

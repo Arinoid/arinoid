@@ -13,8 +13,26 @@ $this->title = 'Arinoid | Bookmarks';
 ?>
 
 <div id="bookmark-table">
-    <div class="bookmark-element">
-        <img src="" width="144" height="81">
-        Title: Google | Date: 2014-07-09 | http://google.com
+    <div id="bookmark-element" class="bookmark-element">
+        <div>
+            <img class="bookmark-element-img" src="" width="144" height="81">
+        </div>
+        <div>
+            <div class="bookmark-element-title">
+
+            </div>
+            <div class="grab-text"></div>
+            <div>
+                <time class="bookmark-element-date"></time>
+            </div>
+        </div>
+        <div>
+            <a href="" class="bookmark-element-link" target="_blank"></a>
+
+            <div class="grab-text"></div>
+        </div>
+        <div>
+            <span class="glyphicon glyphicon-qrcode"></span>
+        </div>
     </div>
 </div>

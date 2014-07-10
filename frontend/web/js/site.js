@@ -56,18 +56,38 @@ $(function () {
                 var obj = $.parseJSON(data);
 
                 $.each(obj, function (key, val) {
-                    console.log(val);
+                    var div = $("#bookmark-element").clone().show();
 
-                    var div = $("<div>");
+//                    div.find('.bookmark-element-img').val();
+                    div.find('.bookmark-element-title').html(val.title);
+                    div.find('.bookmark-element-date').html(val.date);
+                    div.find('.bookmark-element-link').attr('href', val.uri).html(val.uri);
 
-                    var grab_text = $("<div>");
-
-                    grab_text.addClass('grab-text');
-
-                    var a = $("<a>");
-                    a.addClass('color-6-cyan').attr('style', 'float:left;display:block;width:250px;white-space: nowrap;overflow: hidden;').html(val.uri).attr('href', val.uri);
-
-                    div.addClass().html(val.created_at + ' | ').append(a).append(grab_text);
+//                    $("<div>")
+//                        .append(
+//                            $("<img>").attr({'width': '144', 'height': '81'})
+//                        ).appendTo(div);
+//                    $("<div>")
+//                        .append(
+//                            $("<div>").addClass('title').html(val.title)
+//                        )
+//                        .append(
+//                            $("<div>").addClass('grab-text')
+//                        )
+//                        .append(
+//                            $("<div>").addClass('date').append(
+//                                $("<time>").html(val.date)
+//                            )
+//                        ).appendTo(div);
+//                    $("<div>")
+//                        .append(
+//                            $("<a>").addClass('bookmark-element-link')
+//                                .attr({'href': val.uri, 'target': 'blank'}).html(val.uri)
+//                        )
+//                        .append(
+//                            $("<div>").addClass('grab-text')
+//                        ).appendTo(div);
+//
                     $("#bookmark-table").append(div);
                 });
             });

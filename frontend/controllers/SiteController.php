@@ -11,6 +11,7 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use yii\base\InvalidParamException;
+use yii\helpers\ArrayHelper;
 use yii\helpers\BaseUrl;
 use yii\helpers\Json;
 use yii\helpers\Url;
@@ -141,10 +142,19 @@ class SiteController extends Controller
                 if (!$exist) {
                     $modelBookmark = new Bookmark();
 
+                    $title = null;
+                    $str = file_get_contents($uri, null, null, null, 1024);
+                    if (strlen($str) > 0) {
+                        preg_match('/<title>([^<]*)<[\/]title>/i', $str, $title);
+                        $title = trim(ArrayHelper::getValue($title, 1));
+                    }
+
+
                     $modelBookmark->setAttributes([
                         'uri_id' => $id,
                         'user_id' => Yii::$app->user->getId(),
                         'created_at' => time(),
+                        'title' => $title,
                     ]);
 
                     $modelBookmark->save();
@@ -322,7 +332,7 @@ class SiteController extends Controller
 
             $return[] = [
                 'id' => $bookmark->id,
-                'created_at' => $bookmark->created_at,
+                'date' => date('Y-m-d H:i:s', $bookmark->created_at),
                 'uri_id' => $uri->uri_id,
                 'uri' => $uri->uri,
                 'title' => $bookmark->title,

@@ -47,11 +47,11 @@ AppAsset::register($this);
     <?=
     Menu::widget([
         'items' => [
-            ['label' => 'Profile', 'url' => 'profile', 'icon' => 'user'],
+            ['label' => 'Profile', 'url' => null, 'icon' => 'user'],
             ['label' => 'Shorten URL', 'url' => '/', 'icon' => 'link'],
             ['label' => 'Bookmarks', 'url' => 'bookmark', 'icon' => 'bookmark'],
-            ['label' => 'Tags', 'url' => 'tags', 'icon' => 'tags'],
-            ['label' => 'Settings', 'url' => 'settings', 'icon' => 'cog'],
+            ['label' => 'Tags', 'url' => null, 'icon' => 'tags'],
+            ['label' => 'Settings', 'url' => null, 'icon' => 'cog'],
         ]
     ])
     ?>
