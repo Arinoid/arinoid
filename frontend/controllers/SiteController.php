@@ -337,6 +337,8 @@ class SiteController extends Controller
                 'uri' => $uri->uri,
                 'title' => $bookmark->title,
                 'description' => $bookmark->description,
+                'site' => Url::base(true),
+                'qrcode' => $uri->uri_id . '.png',
             ];
         }
         return Json::encode($return);

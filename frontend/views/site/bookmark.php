@@ -33,6 +33,11 @@ $this->title = 'Arinoid | Bookmarks';
         </div>
         <div>
             <span class="glyphicon glyphicon-qrcode"></span>
+
+            <div class="bookmark-element-qrcode-div">
+                <img src="" class="bookmark-element-qrcode">
+            </div>
+            <a href="" class="bookmark-element-uri" target="_blank"></a>
         </div>
     </div>
 </div>

@@ -46,6 +46,14 @@ $("#main-menu").mouseleave(function () {
     $("#main-menu-popup").show();
 });
 
+var Event = function () {
+    $(".glyphicon-qrcode").click(function () {
+        var div = $("#qr" + $(this).data('value'));
+
+        div.toggle();
+    });
+}
+
 $(function () {
     if ($("#bookmark-table").length) {
 
@@ -58,38 +66,21 @@ $(function () {
                 $.each(obj, function (key, val) {
                     var div = $("#bookmark-element").clone().show();
 
-//                    div.find('.bookmark-element-img').val();
                     div.find('.bookmark-element-title').html(val.title);
                     div.find('.bookmark-element-date').html(val.date);
                     div.find('.bookmark-element-link').attr('href', val.uri).html(val.uri);
 
-//                    $("<div>")
-//                        .append(
-//                            $("<img>").attr({'width': '144', 'height': '81'})
-//                        ).appendTo(div);
-//                    $("<div>")
-//                        .append(
-//                            $("<div>").addClass('title').html(val.title)
-//                        )
-//                        .append(
-//                            $("<div>").addClass('grab-text')
-//                        )
-//                        .append(
-//                            $("<div>").addClass('date').append(
-//                                $("<time>").html(val.date)
-//                            )
-//                        ).appendTo(div);
-//                    $("<div>")
-//                        .append(
-//                            $("<a>").addClass('bookmark-element-link')
-//                                .attr({'href': val.uri, 'target': 'blank'}).html(val.uri)
-//                        )
-//                        .append(
-//                            $("<div>").addClass('grab-text')
-//                        ).appendTo(div);
-//
+                    div.find('.glyphicon-qrcode').data('value', val.uri_id);
+                    div.find('.bookmark-element-qrcode-div').attr('id', 'qr' + val.uri_id);
+                    div.find('.bookmark-element-qrcode').attr('src', val.qrcode);
+
+                    var full_uri = val.site + '/' + val.uri_id;
+                    div.find('.bookmark-element-uri').attr('href', full_uri).html(full_uri);
+
                     $("#bookmark-table").append(div);
                 });
+
+                Event();
             });
 
     }
