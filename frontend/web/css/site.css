@@ -261,6 +261,28 @@ a.desc:after {
     border-radius: 4px;
 }
 
+#main-response li {
+    margin: 2px 0;
+}
+
+#main-response a.hover {
+    text-decoration: underline;
+}
+
+#main-response a.copied {
+    color: #22F688;
+}
+
+#main-response li span {
+    margin: 0 5px;
+    padding: 5px 0;
+}
+
+#short_uri {
+    font-size: 18px;
+    font-weight: bold;
+}
+
 #qrcode {
     width: 124px;
     height: 124px;
@@ -311,6 +333,7 @@ a.desc:after {
     border: 1px solid #CCCCCC;
     background-color: #FFFFFF;
     border-radius: 4px;
+    padding: 1px;
     z-index: 2;
 }
 
@@ -323,4 +346,25 @@ a.desc:after {
     clear: right;
     height: 20px;
     width: 70px;
+}
+
+.bookmark-element-uri {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.bookmark-element li {
+    margin: 2px 0;
+}
+
+.bookmark-element li span {
+    margin: 0 5px;
+}
+
+.bookmark-element a.hover {
+    text-decoration: underline;
+}
+
+.bookmark-element a.copied {
+    color: #22F688;
 }

@@ -10,16 +10,35 @@ $("#short_form").submit(function () {
 
     }).done(function (data) {
         var response = $.parseJSON(data);
+        var error = response.error;
         var site = response.site;
         var short_uri = response.uri;
         var qrcode = response.qrcode;
 
         uri.removeClass('loading background-color-4-turquoise');
-        if (short_uri != null) {
+        if (error == 0) {
             var full_uri = site + '/' + short_uri;
-            $("#short_uri").html(full_uri).attr('href', full_uri);
+            var link = $("#short_uri");
+            link.html(full_uri).attr('href', full_uri);
             $("#qrcode").attr('src', qrcode);
             $("#main-response").show();
+            var subject = 'Short link from Arinoid.com: ' + full_uri;
+            var body = 'Requested link: ' + $("#uri").val();
+            $("#sendByEmail").attr('href', 'mailto:?Subject=' + subject + '&body=' + body);
+
+            $(".copyToClipboard").click(function (e) {
+                e.preventDefault();
+            }).clipboard({
+                path: '/js/jquery.clipboard.swf',
+                copy: function () {
+                    $(".copyToClipboard").addClass('copied').find('span').removeClass('glyphicon-briefcase').addClass('glyphicon-ok');
+
+                    return $("#short_uri").html();
+                }
+            }).removeClass('copied').find('span').removeClass('glyphicon-ok').addClass('glyphicon-briefcase');
+
+        } else if (error == 400) {
+            alert('Bad request');
         }
     });
     return false;
@@ -47,12 +66,23 @@ $("#main-menu").mouseleave(function () {
 });
 
 var Event = function () {
-    $(".glyphicon-qrcode").click(function () {
-        var div = $("#qr" + $(this).data('value'));
+    $(".toggleQrcode").click(function (e) {
+        e.preventDefault();
 
-        div.toggle();
+        $("#qr" + $(this).data('value')).toggle();
     });
-}
+
+    $(".copyToClipboard").click(function (e) {
+        e.preventDefault();
+    }).clipboard({
+        path: '/js/jquery.clipboard.swf',
+        copy: function () {
+            $(this).addClass('copied').find('span').removeClass('glyphicon-briefcase').addClass('glyphicon-ok');
+            console.log($(this).data('value'));
+            return $(this).data('value');
+        }
+    });
+};
 
 $(function () {
     if ($("#bookmark-table").length) {
@@ -64,18 +94,19 @@ $(function () {
                 var obj = $.parseJSON(data);
 
                 $.each(obj, function (key, val) {
-                    var div = $("#bookmark-element").clone().show();
+                    var div = $("#bookmark-element").clone().attr('id', null).show();
 
-                    div.find('.bookmark-element-title').html(val.title);
+                    div.find('.bookmark-element-title').html(val.title).attr('title', val.title);
                     div.find('.bookmark-element-date').html(val.date);
-                    div.find('.bookmark-element-link').attr('href', val.uri).html(val.uri);
+                    div.find('.bookmark-element-link').attr({'href': val.uri, 'title': val.uri}).html(val.uri);
 
-                    div.find('.glyphicon-qrcode').data('value', val.uri_id);
+                    div.find('.toggleQrcode').data('value', val.uri_id);
                     div.find('.bookmark-element-qrcode-div').attr('id', 'qr' + val.uri_id);
                     div.find('.bookmark-element-qrcode').attr('src', val.qrcode);
 
                     var full_uri = val.site + '/' + val.uri_id;
                     div.find('.bookmark-element-uri').attr('href', full_uri).html(full_uri);
+                    div.find(".copyToClipboard").data('value', full_uri);
 
                     $("#bookmark-table").append(div);
                 });

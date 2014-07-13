@@ -51,7 +51,7 @@ class Menu extends Widget
     private function renderMenu()
     {
         $avatar = Html::tag('div', '', ['id' => 'main-menu-avatar']);
-        $ul = Html::tag('ul', $this->renderList(), ['class' => 'list-group']);
+        $ul = Html::tag('ul', $this->renderList(), ['class' => 'list-group list-unstyled']);
 
         return Html::tag('div', $avatar . $ul, ['id' => 'main-menu', 'class' => 'background-color-6-cyan']);
     }

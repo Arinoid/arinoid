@@ -22,10 +22,28 @@ $this->title = 'Arinoid | Shorten URL';
     </div>
 
     <div class="col-md-6 col-md-offset-3" id="main-response">
-        <div class="col-md-12">
-        <?php //TODO: add design, copy to clipboard, qr-code ?>
-            <a href="" id="short_uri" target="_blank"></a>
-            <img id="qrcode" src="" alt="Loading"/>
+        <div class="col-xs-12">
+            <?php //TODO: add design, copy to clipboard, qr-code ?>
+            <div class="row">
+                <div class="col-xs-6">
+                    <a href="" id="short_uri" target="_blank"></a>
+
+                    <ul class="list-group list-unstyled">
+                        <li class="list-group-item-text">
+                            <a class="copyToClipboard" href=""><span class="glyphicon glyphicon-briefcase"></span>Copy
+                                to
+                                clipboard</a>
+                        </li>
+                        <li class="list-group-item-text">
+                            <a id="sendByEmail" href=""><span class="glyphicon glyphicon-envelope"></span>Send by email</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-xs-6 text-right">
+                    <img id="qrcode" src="" alt="Loading"/>
+                </div>
+            </div>
         </div>
     </div>
 
