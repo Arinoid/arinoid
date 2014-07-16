@@ -154,6 +154,10 @@ class SiteController extends Controller
                             $title = trim(ArrayHelper::getValue($title, 1));
                         }
 
+                        if (strlen($title) == 0) {
+                            $title = 'Title';
+                        }
+
 
                         $modelBookmark->setAttributes([
                             'uri_id' => $id,
