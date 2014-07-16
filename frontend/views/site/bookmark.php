@@ -23,13 +23,18 @@ $this->title = 'Arinoid | Bookmarks';
             </div>
             <div class="grab-text"></div>
             <div>
-                <time class="bookmark-element-date"></time>
+                <a href="" class="bookmark-element-link" target="_blank"></a>
+
+                <div class="grab-text"></div>
             </div>
+            <div>
+            <time class="bookmark-element-date"></time>
+            </div>
+
         </div>
         <div>
-            <a href="" class="bookmark-element-link" target="_blank"></a>
-
-            <div class="grab-text"></div>
+            <div class="bookmark-element-description-div"><textarea name="" id=""></textarea></div>
+            <div class="bookmark-element-description"></div>
         </div>
         <div>
             <ul class="list-group list-unstyled">
@@ -51,3 +56,5 @@ $this->title = 'Arinoid | Bookmarks';
         </div>
     </div>
 </div>
+
+<div id="div"></div>

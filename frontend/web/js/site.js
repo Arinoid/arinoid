@@ -69,7 +69,8 @@ var Event = function () {
     $(".toggleQrcode").click(function (e) {
         e.preventDefault();
 
-        $("#qr" + $(this).data('value')).toggle();
+        $("#qr" + $(this).data('value')).addClass('modal-show').show();
+        $("#div").show();
     });
 
     $(".copyToClipboard").click(function (e) {
@@ -81,6 +82,18 @@ var Event = function () {
             console.log($(this).data('value'));
             return $(this).data('value');
         }
+    });
+
+    $(".bookmark-element-description").click(function () {
+        $(this).prev().addClass('modal-show').show();
+        $("#div").show();
+    });
+
+    // Close modal window
+    $("#div").click(function () {
+        $(".modal-show").hide();
+
+        $(this).hide();
     });
 };
 
@@ -97,8 +110,12 @@ $(function () {
                     var div = $("#bookmark-element").clone().attr('id', null).show();
 
                     div.find('.bookmark-element-title').html(val.title).attr('title', val.title);
-                    div.find('.bookmark-element-date').html(val.date);
                     div.find('.bookmark-element-link').attr({'href': val.uri, 'title': val.uri}).html(val.uri);
+                    div.find('.bookmark-element-date').html(val.date);
+
+                    div.find('.bookmark-element-description').html(val.description).attr('title', val.description);
+                    div.find('.bookmark-element-description-div').find('textarea').html(val.description);
+
 
                     div.find('.toggleQrcode').data('value', val.uri_id);
                     div.find('.bookmark-element-qrcode-div').attr('id', 'qr' + val.uri_id);
