@@ -95,6 +95,25 @@ var Event = function () {
 
         $(this).hide();
     });
+
+    $(".description").change(function () {
+        var json = {
+            'id': $(this).data('id'),
+            'description': $(this).val()
+        };
+
+        $.post('site/update-bookmark', json,function () {
+
+        }).done(function (data) {
+            var response = $.parseJSON(data);
+            var id = response.id;
+            var description = response.description;
+
+            if (id) {
+                $("#div" + id).html(description).attr('value', description);
+            }
+        });
+    });
 };
 
 $(function () {
@@ -113,8 +132,10 @@ $(function () {
                     div.find('.bookmark-element-link').attr({'href': val.uri, 'title': val.uri}).html(val.uri);
                     div.find('.bookmark-element-date').html(val.date);
 
-                    div.find('.bookmark-element-description').html(val.description).attr('title', val.description);
-                    div.find('.bookmark-element-description-div').find('textarea').html(val.description);
+                    div.find('.bookmark-element-description')
+                        .attr('id', 'div' + val.uri_id).html(val.description).attr('title', val.description);
+                    div.find('.bookmark-element-description-div').find('textarea').addClass('description')
+                        .attr('id', 'tex' + val.uri_id).data('id', val.uri_id).html(val.description);
 
 
                     div.find('.toggleQrcode').data('value', val.uri_id);

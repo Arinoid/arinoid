@@ -142,32 +142,7 @@ class SiteController extends Controller
                 }
 
                 if ($id && !Yii::$app->user->isGuest) {
-                    $exist = Bookmark::findOne(['uri_id' => $id, 'user_id' => Yii::$app->user->getId()]);
-                    if ($exist == NULL) {
-                        $modelBookmark = new Bookmark();
-
-                        $title = NULL;
-                        $str = @file_get_contents($uri, NULL, NULL, NULL, 2048);
-
-                        if (strlen($str) > 0) {
-                            preg_match('/<title>([^<]*)<[\/]title>/i', $str, $title);
-                            $title = trim(ArrayHelper::getValue($title, 1));
-                        }
-
-                        if (strlen($title) == 0) {
-                            $title = 'Title';
-                        }
-
-
-                        $modelBookmark->setAttributes([
-                            'uri_id' => $id,
-                            'user_id' => Yii::$app->user->getId(),
-                            'created_at' => time(),
-                            'title' => $title,
-                        ]);
-
-                        $modelBookmark->save();
-                    }
+                    $this->saveBookmark($id, $uri);
                 }
             }
         }
@@ -201,11 +176,13 @@ class SiteController extends Controller
 
     public function actionRedirect()
     {
-        $uriId = Yii::$app->request->get('uriId');
+        $id = Yii::$app->request->get('uriId');
 
-        $exist = Uri::findOne(['uri_id' => $uriId]);
+        $exist = Uri::findOne(['uri_id' => $id]);
 
         if ($exist) {
+            $this->saveBookmark($exist->id, $exist->uri);
+
             $this->redirect($exist->uri);
         }
 
@@ -334,7 +311,7 @@ class SiteController extends Controller
     public function actionGetBookmark()
     {
         $bookmarks = Bookmark::find()->orderBy('id desc')
-            ->where('id>0')->all();
+            ->where('user_id=' . Yii::$app->user->getId())->all();
 
         $return = [];
         /** @var $bookmark Bookmark */
@@ -352,6 +329,33 @@ class SiteController extends Controller
                 'qrcode' => $uri->uri_id . '.png',
             ];
         }
+        return Json::encode($return);
+    }
+
+    public function actionUpdateBookmark()
+    {
+        $id = Yii::$app->request->post('id');
+        $description = Yii::$app->request->post('description');
+
+        $return = [];
+
+        $uri = Uri::findOne(['uri_id' => $id]);
+        if ($uri) {
+            $bookmark = Bookmark::findOne(['uri_id' => $uri->id, 'user_id' => Yii::$app->user->getId()]);
+            if ($bookmark) {
+                $bookmark->setAttributes([
+                    'description' => $description,
+                ]);
+
+                $bookmark->save();
+
+                $return = [
+                    'id' => $uri->uri_id,
+                    'description' => $bookmark->description,
+                ];
+            }
+        }
+
         return Json::encode($return);
     }
 
@@ -382,5 +386,34 @@ class SiteController extends Controller
         }
 
         return false;
+    }
+
+    private function saveBookmark($id, $uri)
+    {
+        $exist = Bookmark::findOne(['uri_id' => $id, 'user_id' => Yii::$app->user->getId()]);
+        if ($exist == NULL) {
+            $modelBookmark = new Bookmark();
+
+            $title = NULL;
+            $str = @file_get_contents($uri, NULL, NULL, NULL, 2048);
+
+            if (strlen($str) > 0) {
+                preg_match('/<title>([^<]*)<[\/]title>/i', $str, $title);
+                $title = trim(ArrayHelper::getValue($title, 1));
+            }
+
+            if (strlen($title) == 0) {
+                $title = 'Title';
+            }
+
+            $modelBookmark->setAttributes([
+                'uri_id' => $id,
+                'user_id' => Yii::$app->user->getId(),
+                'created_at' => time(),
+                'title' => $title,
+            ]);
+
+            $modelBookmark->save();
+        }
     }
 }
