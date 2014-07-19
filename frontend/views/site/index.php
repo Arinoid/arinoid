@@ -62,9 +62,18 @@ $this->title = 'Arinoid | Shorten URL';
                 <?php $form = ActiveForm::begin([
                     'id' => 'login-form',
                     'enableAjaxValidation' => true,
+                    'fieldConfig' => [
+                        'template' => '{input}{error}',
+                    ],
                 ]); ?>
-                <?= $form->field($model, 'username') ?>
-                <?= $form->field($model, 'password')->passwordInput() ?>
+                <?=
+                $form->field($model, 'email', ['inputOptions' => [
+                    'class' => 'form-control', 'placeholder' => 'Email'
+                ]]) ?>
+                <?=
+                $form->field($model, 'password', ['inputOptions' => [
+                    'class' => 'form-control', 'placeholder' => 'Password'
+                ]])->passwordInput() ?>
                 <div class="form-group">
                     <?= Html::submitButton('Login', ['class' => 'btn btn-default', 'name' => 'login-button']) ?>
                 </div>
@@ -73,7 +82,7 @@ $this->title = 'Arinoid | Shorten URL';
         </div>
 
         <button id="login-popup-close" type="button" class="close">
-            <span>&times;</span><span class="sr-only">Close</span>
+            <span class="glyphicon glyphicon-remove"></span><span class="sr-only">Close</span>
         </button>
     </div>
 <?php endif; ?>
