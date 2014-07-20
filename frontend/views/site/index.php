@@ -49,13 +49,14 @@ $this->title = 'Arinoid | Shorten URL';
 
 
 <?php if (Yii::$app->user->isGuest): ?>
-    <div id="login-popup" class="background-color-5-aquamarine">
-        Sign up and start right away!
-        <br>
-        FB - TW
-        <br>
-        - or -
-        <br>
+    <div id="login-popup" class="background-color-6-cyan text-center">
+        <div>
+            Sign up and start right away!
+        </div>
+        <div id="login-popup-sn">
+            <span id="login-popup-fb"></span><span id="login-popup-tw"></span>
+        </div>
+        <div id="login-popup-or"><span class="background-color-6-cyan">or</span></div>
 
         <div class="row">
             <div class="col-lg-12">
@@ -74,8 +75,8 @@ $this->title = 'Arinoid | Shorten URL';
                 $form->field($model, 'password', ['inputOptions' => [
                     'class' => 'form-control', 'placeholder' => 'Password'
                 ]])->passwordInput() ?>
-                <div class="form-group">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-default', 'name' => 'login-button']) ?>
+                <div>
+                <?= Html::submitButton('Login', ['class' => 'btn btn-default', 'name' => 'login-button']) ?>
                 </div>
                 <?php ActiveForm::end(); ?>
             </div>

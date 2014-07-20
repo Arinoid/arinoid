@@ -104,7 +104,7 @@ a.desc:after {
 
 #main-bookmark {
     top: 0;
-    left: 15%;
+    left: 220px;
     position: absolute;
     width: 85px;
     height: 100px;
@@ -193,9 +193,52 @@ a.desc:after {
 
 #login-popup {
     top: 0;
+    left: 220px;
     position: absolute;
     display: none;
     width: 200px;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+#login-popup-sn span {
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: 0.2;
+    filter: alpha(opacity=20);
+    margin: 4px 8px 0;
+}
+
+#login-popup-sn span:hover, #login-popup-sn span:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+#login-popup-fb {
+    background: url('../img/fb.png') repeat-x center left transparent;
+}
+
+#login-popup-tw {
+    background: url('../img/tw.png') repeat-x center left transparent;
+}
+
+#login-popup-or {
+    background: url('../img/eeeeee.png') repeat-x center left transparent;
+}
+
+#login-popup-or span {
+    padding: 0 4px;
+}
+
+#login-popup-close {
+    margin-top: -20px;
 }
 
 #main-menu-popup {
@@ -413,4 +456,96 @@ a.desc:after {
     -moz-opacity: 0.10;
     -khtml-opacity: 0.10;
     opacity: 0.10;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 1100px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1200px) {
+    .container {
+        width: 655px;
+    }
+
+    .bookmark-element-title, .bookmark-element-link {
+        width: 200px;
+    }
+
+    .bookmark-element {
+        height: 176px;
+    }
+
+    .bookmark-element > div {
+        height: 85px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 380px;
+    }
+
+    .bookmark-element {
+        height: 247px;
+    }
+
+    .bookmark-element-title, .bookmark-element-link {
+        width: 120px;
+    }
+
+    .bookmark-element-description, .bookmark-element-description-div textarea {
+        margin-top: 5px;
+        padding: 0;
+    }
+
+    .bookmark-element-description:hover {
+        margin-top: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 280px;
+    }
+
+    #main-bookmark, #login-popup {
+        left: 50px;
+    }
+
+    #main-menu {
+        width: 25px;
+    }
+
+    #main-menu-avatar {
+        display: none;
+    }
+
+    #main-menu li {
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    #main-menu-popup {
+        width: 25px;
+        font-size: 14px;
+    }
+
+    .bookmark-element {
+        width: 280px;
+        height: 225px;
+    }
+
+    .bookmark-element img {
+        display: none;
+    }
+
+    .bookmark-element-title, .bookmark-element-link {
+        width: 200px;
+    }
+
+    .bookmark-element-description, .bookmark-element-description-div textarea {
+        width: 270px;
+    }
 }

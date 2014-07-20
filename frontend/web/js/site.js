@@ -45,7 +45,7 @@ $("#short_form").submit(function () {
 });
 
 $("#login").click(function () {
-    $("#login-popup").css('left', '15%').show();
+    $("#login-popup").show();
     $("#main-bookmark").hide();
     return false;
 });
