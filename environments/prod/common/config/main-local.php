@@ -5,7 +5,7 @@ return [
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=arinoid',
             'username' => 'root',
-            'password' => '',
+            'password' => 'rOOt',
             'charset' => 'utf8',
         ],
         'mail' => [
