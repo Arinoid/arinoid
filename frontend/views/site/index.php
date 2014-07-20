@@ -7,43 +7,33 @@ use yii\widgets\ActiveForm;
  */
 $this->title = 'Arinoid | Shorten URL';
 ?>
-    <div class="col-md-6 col-md-offset-3">
-        <form id="short_form" class="row">
-            <div class="col-md-9">
-                <label class="sr-only" for="link">URL</label>
+    <form id="short-form">
+        <div id="short-form-uri">
+            <label class="sr-only" for="link">URL</label>
 
-                <input name="uri" type="text" class="form-control" autocomplete="off" id="uri"
-                       placeholder="Enter link">
-            </div>
-            <div class="col-md-3">
-                <button type="submit" class="btn btn-default">Shorten URL</button>
-            </div>
-        </form>
-    </div>
+            <input name="uri" type="text" class="form-control" autocomplete="off" id="uri"
+                   placeholder="Enter link">
+            <button type="submit" class="btn btn-default">Shorten URL</button>
+        </div>
+    </form>
 
-    <div class="col-md-6 col-md-offset-3" id="main-response">
-        <div class="col-xs-12">
-            <?php //TODO: add design, copy to clipboard, qr-code ?>
-            <div class="row">
-                <div class="col-xs-6">
-                    <a href="" id="short_uri" target="_blank"></a>
+    <div id="main-response">
+        <div id="main-response-link">
+            <a href="" id="short_uri" target="_blank">http://arinoid.com/XXXXX</a>
 
-                    <ul class="list-group list-unstyled">
-                        <li class="list-group-item-text">
-                            <a class="copyToClipboard" href=""><span class="glyphicon glyphicon-briefcase"></span>Copy
-                                to
-                                clipboard</a>
-                        </li>
-                        <li class="list-group-item-text">
-                            <a id="sendByEmail" href=""><span class="glyphicon glyphicon-envelope"></span>Send by email</a>
-                        </li>
-                    </ul>
-
-                </div>
-                <div class="col-xs-6 text-right">
-                    <img id="qrcode" src="" alt="Loading"/>
-                </div>
-            </div>
+            <ul class="list-group list-unstyled">
+                <li class="list-group-item-text">
+                    <a class="copyToClipboard" href="">
+                        <span class="glyphicon glyphicon-briefcase"></span>Copy to clipboard
+                    </a>
+                </li>
+                <li class="list-group-item-text">
+                    <a id="sendByEmail" href=""><span class="glyphicon glyphicon-envelope"></span>Send by email</a>
+                </li>
+            </ul>
+        </div>
+        <div id="main-response-qr">
+            <img id="qrcode" src="" alt="Loading"/>
         </div>
     </div>
 
@@ -76,7 +66,7 @@ $this->title = 'Arinoid | Shorten URL';
                     'class' => 'form-control', 'placeholder' => 'Password'
                 ]])->passwordInput() ?>
                 <div>
-                <?= Html::submitButton('Login', ['class' => 'btn btn-default', 'name' => 'login-button']) ?>
+                    <?= Html::submitButton('Login', ['class' => 'btn btn-default', 'name' => 'login-button']) ?>
                 </div>
                 <?php ActiveForm::end(); ?>
             </div>

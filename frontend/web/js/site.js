@@ -1,4 +1,4 @@
-$("#short_form").submit(function () {
+$("#short-form").submit(function () {
     var uri = $("#uri");
     var json = {
         'uri': uri.val()

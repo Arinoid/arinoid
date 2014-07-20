@@ -175,10 +175,23 @@ a.desc:after {
 
 /* Palette End */
 
-@media (max-width: 768px) {
-    .container {
-        width: 50%
-    }
+#short-form {
+    height: 35px;
+    text-align: center;
+}
+
+#short-form-uri, #main-response {
+    width: 500px;
+    margin: 0 auto;
+}
+
+#short-form-uri input {
+    width: 350px;
+    float: left;
+}
+
+#short-form-uri button {
+    float: right;
 }
 
 .loading {
@@ -295,13 +308,22 @@ a.desc:after {
 }
 
 #main-response {
-    margin-top: 5px;
-    display: none;
-}
-
-#main-response > div {
     border: 1px solid #CCCCCC;
     border-radius: 4px;
+    width: 500px;
+    margin: 5px auto;
+    display: none;
+    height: 134px;
+}
+
+#main-response-link {
+    padding: 4px;
+    float: left;
+}
+
+#main-response-qr {
+    float: right;
+    padding: 4px;
 }
 
 #main-response li {
@@ -487,6 +509,14 @@ a.desc:after {
         width: 380px;
     }
 
+    #short-form-uri, #main-response {
+        width: 370px;
+    }
+
+    #short-form-uri input {
+        width: 250px;
+    }
+
     .bookmark-element {
         height: 247px;
     }
@@ -508,6 +538,22 @@ a.desc:after {
 @media (max-width: 480px) {
     .container {
         width: 280px;
+    }
+
+    #short-form-uri, #main-response {
+        width: 270px;
+    }
+
+    #short-form-uri input {
+        width: 150px;
+    }
+
+    #main-response {
+        height: 240px;
+    }
+
+    #main-response-qr {
+        float: left;
     }
 
     #main-bookmark, #login-popup {
