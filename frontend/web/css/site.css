@@ -219,7 +219,7 @@ a.desc:after {
     display: inline-block;
     height: 24px;
     width: 24px;
-    color: #000;
+    color: #000000;
     text-shadow: 0 1px 0 #fff;
     opacity: 0.2;
     filter: alpha(opacity=20);
@@ -227,7 +227,7 @@ a.desc:after {
 }
 
 #login-popup-sn span:hover, #login-popup-sn span:focus {
-    color: #000;
+    color: #000000;
     text-decoration: none;
     cursor: pointer;
     opacity: 0.5;
@@ -243,7 +243,7 @@ a.desc:after {
 }
 
 #login-popup-or {
-    background: url('../img/eeeeee.png') repeat-x center left transparent;
+    background: url('../img/0ba0a6.png') repeat-x center left transparent;
 }
 
 #login-popup-or span {
