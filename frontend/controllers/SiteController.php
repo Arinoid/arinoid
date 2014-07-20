@@ -166,11 +166,13 @@ class SiteController extends Controller
             $model->load(Yii::$app->request->post());
             Yii::$app->response->format = Response::FORMAT_JSON;
 
-            User::create([
-                'username' => $model->email,
-                'email' => $model->email,
-                'password' => $model->password,
-            ]);
+            if ($model->email && $model->password) {
+                User::create([
+                    'username' => $model->email,
+                    'email' => $model->email,
+                    'password' => $model->password,
+                ]);
+            }
 
             return ActiveForm::validate($model);
         } elseif ($model->load(Yii::$app->request->post()) && $model->login()) {
