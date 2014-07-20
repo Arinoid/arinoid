@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\User;
 use Yii;
 use common\models\LoginForm;
 use common\models\Uri;
@@ -164,6 +165,13 @@ class SiteController extends Controller
         if (Yii::$app->request->isAjax) {
             $model->load(Yii::$app->request->post());
             Yii::$app->response->format = Response::FORMAT_JSON;
+
+            User::create([
+                'username' => $model->email,
+                'email' => $model->email,
+                'password' => $model->password,
+            ]);
+
             return ActiveForm::validate($model);
         } elseif ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();

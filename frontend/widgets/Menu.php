@@ -39,7 +39,13 @@ class Menu extends Widget
 
             $label = ArrayHelper::getValue($list, 'label');
             $url = ArrayHelper::getValue($list, 'url');
-            $item = Html::a($icon . $label, $url, $this->isItemActive($list));
+
+            $options['class'] = $this->isItemActive($list);
+            if (!$url) {
+                $options['class'] = 'blank';
+            }
+
+            $item = Html::a($icon . $label, $url, $options);
 
             Html::addCssClass($itemOptions, 'list-group-item-text');
             $lists .= Html::tag('li', $item, $itemOptions);
@@ -65,9 +71,9 @@ class Menu extends Widget
 
     private function isItemActive($item)
     {
-        $active = [];
+        $active = NULL;
         if ($this->url == $item['url']) {
-            $active = ['class' => 'active'];
+            $active = 'active';
         }
 
         return $active;

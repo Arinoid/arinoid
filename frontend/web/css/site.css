@@ -279,6 +279,7 @@ a.desc:after {
 }
 
 #main-menu-avatar {
+    display: none;
     width: 100px;
     height: 100px;
     border: 1px solid #000000;
@@ -300,6 +301,15 @@ a.desc:after {
 #main-menu a.active {
     color: #0EC9D0;
     background-color: #FFFFFF;
+}
+
+#main-menu a.blank {
+    color: #000000;
+}
+
+#main-menu a.blank:hover {
+    text-decoration: none;
+    background-color: #37E5F0;
 }
 
 #main-menu li span {
