@@ -78,8 +78,11 @@ var Event = function () {
     }).clipboard({
         path: '/js/jquery.clipboard.swf',
         copy: function () {
-            $(this).addClass('copied').find('span').removeClass('glyphicon-briefcase').addClass('glyphicon-ok');
-            console.log($(this).data('value'));
+            $(".copyToClipboard").removeClass('copied').find('span')
+                .addClass('glyphicon-briefcase').removeClass('glyphicon-ok');
+            $(this).addClass('copied').find('span')
+                .removeClass('glyphicon-briefcase').addClass('glyphicon-ok');
+
             return $(this).data('value');
         }
     });

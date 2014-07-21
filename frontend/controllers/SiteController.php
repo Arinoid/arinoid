@@ -405,7 +405,7 @@ class SiteController extends Controller
             $modelBookmark = new Bookmark();
 
             $title = NULL;
-            $str = @file_get_contents($uri, NULL, NULL, NULL, 2048);
+            $str = @file_get_contents($uri, NULL, NULL, NULL, 131072);
 
             if (strlen($str) > 0) {
                 preg_match('/<title>([^<]*)<[\/]title>/i', $str, $title);
