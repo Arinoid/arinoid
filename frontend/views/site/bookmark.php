@@ -12,8 +12,13 @@ use yii\grid\GridView;
 $this->title = 'Arinoid | Bookmarks';
 ?>
 
+<span id="bookmark-refresh" class="glyphicon glyphicon-refresh color-6-cyan"></span>
 <div id="bookmark-table">
     <div id="bookmark-element" class="bookmark-element">
+        <div class="bookmark-element-edit">
+            <span class="glyphicon glyphicon-refresh refresh" title="Refresh thumbnail and title"></span>
+            <span class="glyphicon glyphicon-remove remove" title="Remove bookmark"></span>
+        </div>
         <div>
             <img src="/img/defaultThumbnail.png" alt="thumbnail" class="bookmark-element-img" width="144" height="81">
         </div>
@@ -28,7 +33,7 @@ $this->title = 'Arinoid | Bookmarks';
                 <div class="grab-text"></div>
             </div>
             <div>
-            <time class="bookmark-element-date"></time>
+                <time class="bookmark-element-date"></time>
             </div>
 
         </div>
@@ -49,7 +54,7 @@ $this->title = 'Arinoid | Bookmarks';
                     <a href="" class="toggleQrcode"><span class="glyphicon glyphicon-qrcode"></span>Show QR-code</a>
 
                     <div class="bookmark-element-qrcode-div">
-                        <img src="#" class="bookmark-element-qrcode" alt="Loading">
+                        <img src="e9Mbz.png" class="bookmark-element-qrcode" alt="Loading">
                     </div>
                 </li>
             </ul>

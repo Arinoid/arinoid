@@ -346,27 +346,38 @@ class SiteController extends Controller
     {
         $id = Yii::$app->request->post('id');
         $description = Yii::$app->request->post('description');
+        $remove = Yii::$app->request->post('remove');
+        $refresh = Yii::$app->request->post('refresh');
 
-        $return = [];
+        $attributes = [];
 
         $uri = Uri::findOne(['uri_id' => $id]);
         if ($uri) {
+            $attributes['id'] = $uri->uri_id;
+
             $bookmark = Bookmark::findOne(['uri_id' => $uri->id, 'user_id' => Yii::$app->user->getId()]);
             if ($bookmark) {
-                $bookmark->setAttributes([
-                    'description' => $description,
-                ]);
+                if ($description) {
+                    $attributes['description'] = $description;
+                }
 
-                $bookmark->save();
+                if ($refresh) {
+                    $attributes['title'] = $this->getUriTitle($uri->uri);
+                }
 
-                $return = [
-                    'id' => $uri->uri_id,
-                    'description' => $bookmark->description,
-                ];
+                if ($remove) {
+                    $attributes['remove'] = true;
+
+                    $bookmark->delete();
+                } else {
+                    $bookmark->setAttributes($attributes);
+
+                    $bookmark->save();
+                }
             }
         }
 
-        return Json::encode($return);
+        return Json::encode($attributes);
     }
 
     private function isValidUrl($url)
@@ -404,26 +415,32 @@ class SiteController extends Controller
         if ($exist == NULL) {
             $modelBookmark = new Bookmark();
 
-            $title = NULL;
-            $str = @file_get_contents($uri, NULL, NULL, NULL, 131072);
-
-            if (strlen($str) > 0) {
-                preg_match('/<title>([^<]*)<[\/]title>/i', $str, $title);
-                $title = trim(ArrayHelper::getValue($title, 1));
-            }
-
-            if (strlen($title) == 0) {
-                $title = 'Title';
-            }
 
             $modelBookmark->setAttributes([
                 'uri_id' => $id,
                 'user_id' => Yii::$app->user->getId(),
                 'created_at' => time(),
-                'title' => $title,
+                'title' => $this->getUriTitle($uri),
             ]);
 
             $modelBookmark->save();
         }
+    }
+
+    private function getUriTitle($uri)
+    {
+        $title = NULL;
+        $str = @file_get_contents($uri);
+
+        if (strlen($str) > 0) {
+            preg_match('/<title>([^<]*)<[\/]title>/i', $str, $title);
+            $title = trim(ArrayHelper::getValue($title, 1));
+        }
+
+        if (strlen($title) == 0) {
+            $title = 'Title';
+        }
+
+        return $title;
     }
 }

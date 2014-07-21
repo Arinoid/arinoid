@@ -31,11 +31,11 @@ $("#short-form").submit(function () {
             }).clipboard({
                 path: '/js/jquery.clipboard.swf',
                 copy: function () {
-                    $(".copyToClipboard").addClass('copied').find('span').removeClass('glyphicon-briefcase').addClass('glyphicon-ok');
+                    $(".copyToClipboard").addClass('copied').find("span").removeClass('glyphicon-briefcase').addClass('glyphicon-ok');
 
                     return $("#short_uri").html();
                 }
-            }).removeClass('copied').find('span').removeClass('glyphicon-ok').addClass('glyphicon-briefcase');
+            }).removeClass('copied').find("span").removeClass('glyphicon-ok').addClass('glyphicon-briefcase');
 
         } else if (error == 400) {
             alert('Bad request');
@@ -65,6 +65,14 @@ $("#main-menu").mouseleave(function () {
     $("#main-menu-popup").show();
 });
 
+$("#bookmark-refresh").click(function () {
+    $(this).addClass('active');
+
+    if (refreshBookmarks()) {
+        $(this).removeClass('active');
+    }
+});
+
 var Event = function () {
     $(".toggleQrcode").click(function (e) {
         e.preventDefault();
@@ -78,9 +86,9 @@ var Event = function () {
     }).clipboard({
         path: '/js/jquery.clipboard.swf',
         copy: function () {
-            $(".copyToClipboard").removeClass('copied').find('span')
+            $(".copyToClipboard").removeClass('copied').find("span")
                 .addClass('glyphicon-briefcase').removeClass('glyphicon-ok');
-            $(this).addClass('copied').find('span')
+            $(this).addClass('copied').find("span")
                 .removeClass('glyphicon-briefcase').addClass('glyphicon-ok');
 
             return $(this).data('value');
@@ -117,9 +125,51 @@ var Event = function () {
             }
         });
     });
+
+    $(".remove").click(function () {
+        var json = {
+            'id': $(this).data('id'),
+            'remove': true
+        };
+
+        $(this).addClass('active');
+        $.post('site/update-bookmark', json,function () {
+
+        }).done(function (data) {
+            var response = $.parseJSON(data);
+            var id = response.id;
+            var remove = response.remove;
+
+            if (remove) {
+                $("#rm" + id).removeClass('active');
+                $("#be" + id).remove();
+            }
+        });
+    });
+
+    $(".refresh").click(function () {
+        var json = {
+            'id': $(this).data('id'),
+            'refresh': true
+        };
+
+        $(this).addClass('active');
+        $.post('site/update-bookmark', json,function () {
+
+        }).done(function (data) {
+            var response = $.parseJSON(data);
+            var id = response.id;
+            var title = response.title;
+
+            if (title) {
+                $("#rf" + id).removeClass('active');
+                $("#ti" + id).html(title).attr('value', title);
+            }
+        });
+    });
 };
 
-$(function () {
+function refreshBookmarks() {
     if ($("#bookmark-table").length) {
 
         var json = {};
@@ -128,32 +178,45 @@ $(function () {
             .done(function (data) {
                 var obj = $.parseJSON(data);
 
-                $.each(obj, function (key, val) {
-                    var div = $("#bookmark-element").clone().attr('id', null).show();
+                $.each(obj.reverse(), function (key, val) {
+                    if ($("#be" + val.uri_id).length == 0) {
+                        var div = $("#bookmark-element").clone().attr('id', 'be' + val.uri_id);
 
-                    div.find('.bookmark-element-title').html(val.title).attr('title', val.title);
-                    div.find('.bookmark-element-link').attr({'href': val.uri, 'title': val.uri}).html(val.uri);
-                    div.find('.bookmark-element-date').html(val.date);
+                        div.find(".refresh").attr('id', 'rf' + val.uri_id).data('id', val.uri_id);
+                        div.find(".remove").attr('id', 'rm' + val.uri_id).data('id', val.uri_id);
 
-                    div.find('.bookmark-element-description')
-                        .attr('id', 'div' + val.uri_id).html(val.description).attr('title', val.description);
-                    div.find('.bookmark-element-description-div').find('textarea').addClass('description')
-                        .attr('id', 'tex' + val.uri_id).data('id', val.uri_id).html(val.description);
+                        div.find(".bookmark-element-title").attr({'id': 'ti' + val.uri_id, 'title': val.title})
+                            .html(val.title);
+                        div.find(".bookmark-element-link").attr({'href': val.uri, 'title': val.uri}).html(val.uri);
+                        div.find(".bookmark-element-date").html(val.date);
+
+                        div.find(".bookmark-element-description")
+                            .attr('id', 'div' + val.uri_id).html(val.description).attr('title', val.description);
+                        div.find(".bookmark-element-description-div").find("textarea").addClass('description')
+                            .attr('id', 'tex' + val.uri_id).data('id', val.uri_id).html(val.description);
 
 
-                    div.find('.toggleQrcode').data('value', val.uri_id);
-                    div.find('.bookmark-element-qrcode-div').attr('id', 'qr' + val.uri_id);
-                    div.find('.bookmark-element-qrcode').attr('src', val.qrcode);
+                        div.find(".toggleQrcode").data('value', val.uri_id);
+                        div.find(".bookmark-element-qrcode-div").attr('id', 'qr' + val.uri_id);
+                        div.find(".bookmark-element-qrcode").attr('src', val.qrcode);
 
-                    var full_uri = val.site + '/' + val.uri_id;
-                    div.find('.bookmark-element-uri').attr('href', full_uri).html(full_uri);
-                    div.find(".copyToClipboard").data('value', full_uri);
+                        var full_uri = val.site + '/' + val.uri_id;
+                        div.find(".bookmark-element-uri").attr('href', full_uri).html(full_uri);
+                        div.find(".copyToClipboard").data('value', full_uri);
 
-                    $("#bookmark-table").append(div);
+                        $("#bookmark-table").prepend(div);
+                    }
                 });
 
                 Event();
             });
 
+        return true;
     }
+
+    return false;
+}
+
+$(function () {
+    refreshBookmarks();
 });
