@@ -570,8 +570,8 @@ a.desc:after {
         left: 50px;
     }
 
-    #main-menu {
-        width: 25px;
+    #main-menu, #main-menu-popup {
+        width: 24px;
     }
 
     #main-menu-avatar {
@@ -584,7 +584,6 @@ a.desc:after {
     }
 
     #main-menu-popup {
-        width: 25px;
         font-size: 14px;
     }
 
