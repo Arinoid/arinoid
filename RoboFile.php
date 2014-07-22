@@ -105,8 +105,8 @@ class RoboFile extends \Robo\Tasks
 
         $this->taskFileSystemStack()
             ->chmod($this->dirDeploy, $this->chmodRead)
-            ->chown($this->dirDeploy, $this->chownWebappUser)
-            ->chgrp($this->dirDeploy, $this->chownWebappGroup)
+            ->chown($this->dirDeploy, $this->chownWebappUser, true)
+            ->chgrp($this->dirDeploy, $this->chownWebappGroup, true)
             ->run();
     }
 
@@ -115,6 +115,7 @@ class RoboFile extends \Robo\Tasks
         $this->printTaskInfo('Setting SymLinks...');
 
         $this->taskFileSystemStack()
+            //TODO
             ->symlink($this->dirDeploy, $this->dirDeploySymLink)
             ->run();
 
