@@ -41,7 +41,7 @@ class RoboFile extends \Robo\Tasks
 
     public function run()
     {
-//        $this->taskBackup();
+        $this->taskBackup();
         $this->taskInit();
         $this->taskCopyFiles();
         $this->taskSetRights();
@@ -77,13 +77,9 @@ class RoboFile extends \Robo\Tasks
     {
         $this->printTaskInfo('Making Init...');
 
-        if ($this->ask('Do you want to update composer (y/n)') == 'y') {
-            $this->taskComposerUpdate();
-        }
+        $this->taskComposerUpdate()->run();
 
-        if ($this->ask('Do you want to apply migrations (y/n)') == 'y') {
-            $this->taskExec('php yii migrate --interactive=0')->run();
-        }
+        $this->taskExec('php yii migrate --interactive=0')->run();
     }
 
     protected function taskCopyFiles()
