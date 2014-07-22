@@ -59,14 +59,21 @@ GETTING STARTED
 After you install the application, you have to conduct the following steps to initialize
 the installed application. You only need to do these once for all.
 
-1. Run command `composer update` to update vendor folder.
-2. Run command `init` to initialize the application with a specific environment.
+1. `composer update`
+2. `php yii init`
 3. Create a new database `arinoid`.
-4. Apply migrations with console command `yii migrate`. This will create tables needed for the application to work.
+4. `php yii migrate`
 5. Set document roots of your Web server:
 
-- for frontend `/path/to/yii-application/frontend/web/` and using the URL `http://arinoid.local/`
-- for backend `/path/to/yii-application/backend/web/` and using the URL `http://admin.arinoid.local/`
+- for frontend `/path_to_application/frontend/web/` and using the URL `http://arinoid.local/`
+- for backend `/path_to_application/backend/web/` and using the URL `http://admin.arinoid.local/`
+
+SERVER UPDATE
+_____________
+
+1. `git pull`
+2. `./vendor/codegyre/robo/robo run`
+
 
 
 TESTING
