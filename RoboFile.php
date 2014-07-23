@@ -6,8 +6,8 @@ class RoboFile extends \Robo\Tasks
 {
     // define public methods as commands
 
-    protected $chmodRead = '0774';
-    protected $chmodWrite = '0774';
+    protected $chmodRead = 0774;
+    protected $chmodWrite = 0774;
 
     protected $chownBackupUser = 'root';
     protected $chownBackupGroup = 'root';
@@ -115,7 +115,6 @@ class RoboFile extends \Robo\Tasks
         $this->printTaskInfo('Setting SymLinks...');
 
         $this->taskFileSystemStack()
-            //TODO
             ->symlink($this->dirDeploy, $this->dirDeploySymLink)
             ->run();
 
