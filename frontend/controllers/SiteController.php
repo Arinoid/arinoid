@@ -477,7 +477,7 @@ class SiteController extends Controller
     {
         $thumbnail = null;
 
-        $name = Security::generateRandomKey(rand(4, 5)) . '.png';
+        $name = trim(Security::generateRandomKey(rand(4, 5)), '-') . '.png';
 
         $command = "wkhtmltoimage --width 1440 --height 810 {$uri} {$name} && convert {$name} -resize 10% {$name}";
 
