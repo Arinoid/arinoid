@@ -27,6 +27,7 @@ use yii\web\Request;
 use yii\widgets\ActiveForm;
 use yii\web\Response;
 use PHPQRCode\QRcode;
+use Symfony\Component\Process\Process;
 
 /**
  * Site controller
@@ -328,11 +329,14 @@ class SiteController extends Controller
         foreach ($bookmarks as $bookmark) {
             $uri = Uri::findOne($bookmark->uri_id);
 
+            $thumbnail = isset($bookmark->thumbnail) ? "thumbnail/{$uri->uri_id}.png" : NULL;
+
             $return[] = [
                 'id' => $bookmark->id,
                 'date' => date('Y-m-d H:i:s', $bookmark->created_at),
                 'uri_id' => $uri->uri_id,
                 'uri' => $uri->uri,
+                'thumbnail' => $thumbnail,
                 'title' => $bookmark->title,
                 'description' => $bookmark->description,
                 'site' => Url::base(true),
@@ -363,6 +367,7 @@ class SiteController extends Controller
 
                 if ($refresh) {
                     $attributes['title'] = $this->getUriTitle($uri->uri);
+                    $attributes['thumbnail'] = $this->getUriThumbnail($uri->uri);
                 }
 
                 if ($remove) {
@@ -377,7 +382,31 @@ class SiteController extends Controller
             }
         }
 
+        if (ArrayHelper::getValue($attributes, 'thumbnail')) {
+            $attributes['thumbnail'] = 'thumbnail/' . $uri->uri_id . '.png';
+        }
+
         return Json::encode($attributes);
+    }
+
+    public function actionThumbnail()
+    {
+        $uriId = Yii::$app->request->get('uriId');
+
+        $exist = Uri::findOne(['uri_id' => $uriId]);
+
+        if ($exist) {
+            $bookmark = Bookmark::findOne(['uri_id' => $exist->id, 'user_id' => Yii::$app->user->getId()]);
+
+            if ($bookmark) {
+                header("Content-type: image/png");
+
+                echo $bookmark->thumbnail;
+                Yii::$app->end();
+            }
+        }
+
+        $this->redirect('/');
     }
 
     private function isValidUrl($url)
@@ -442,5 +471,30 @@ class SiteController extends Controller
         }
 
         return $title;
+    }
+
+    private function getUriThumbnail($uri)
+    {
+        $thumbnail = null;
+
+        $name = Security::generateRandomKey(rand(4, 5)) . '.png';
+
+        $command = "wkhtmltoimage --width 1440 --height 810 {$uri} {$name} && convert {$name} -resize 10% {$name}";
+
+        $process = new Process($command);
+
+        $process->start();
+
+        while ($process->isRunning()) {
+            // waiting for process to finish
+        }
+
+        // Read the file
+        $fp = fopen($name, 'r');
+        $data = fread($fp, filesize($name));
+        fclose($fp);
+        unlink($name);
+
+        return $data;
     }
 }

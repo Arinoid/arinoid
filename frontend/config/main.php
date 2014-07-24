@@ -37,6 +37,7 @@ return [
                 'site' => 'site/index',
                 'bookmark' => 'site/bookmark',
                 'logout' => 'site/logout',
+                'thumbnail/<uriId:[\w-.]{4,5}>.png' => 'site/thumbnail',
                 '<uriId:[\w-.]{4,5}>' => 'site/redirect',
                 '<uriId:[\w-.]{4,5}>.png' => 'site/qrcode',
             ],
