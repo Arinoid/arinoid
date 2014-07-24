@@ -37,6 +37,12 @@ $("#short-form").submit(function () {
                 }
             }).removeClass('copied').find("span").removeClass('glyphicon-ok').addClass('glyphicon-briefcase');
 
+            var json = {
+                'id': short_uri,
+                'refresh': true
+            };
+            $.post('site/update-bookmark', json);
+
         } else if (error == 400) {
             alert('Bad request');
         }
