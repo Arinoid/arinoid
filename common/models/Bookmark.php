@@ -37,7 +37,8 @@ class Bookmark extends ActiveRecord
         return [
             [['uri_id', 'user_id', 'created_at'], 'required'],
             [['uri_id', 'user_id', 'created_at', 'favorite'], 'integer'],
-            [['title', 'thumbnail'], 'string', 'max' => 255],
+            [['title'], 'string', 'max' => 255],
+            [['thumbnail'], 'string'],
             [['description'], 'string', 'max' => 2048]
         ];
     }
