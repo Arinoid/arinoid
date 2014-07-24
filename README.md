@@ -50,7 +50,10 @@ environments/			contains environment-based overrides
 REQUIREMENTS
 ------------
 
-The minimum requirement by this application template that your Web server supports PHP 5.4.0.
+* PHP 5.5.0+
+* `composer`
+* `imagemagick`
+* `wkhtmltoimage`
 
 
 GETTING STARTED

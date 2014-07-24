@@ -165,6 +165,9 @@ var Event = function () {
             if (title) {
                 $("#rf" + id).removeClass('active');
                 $("#ti" + id).html(title).attr('value', title);
+            }
+
+            if (thumbnail) {
                 $("#th" + id).attr('src', thumbnail);
             }
         });
@@ -187,9 +190,9 @@ function refreshBookmarks() {
                         div.find(".refresh").attr('id', 'rf' + val.uri_id).data('id', val.uri_id);
                         div.find(".remove").attr('id', 'rm' + val.uri_id).data('id', val.uri_id);
 
+                        div.find(".bookmark-element-img").attr('id', 'th' + val.uri_id);
                         if (val.thumbnail) {
-                            div.find(".bookmark-element-img")
-                                .attr({'id': 'th' + val.uri_id, 'src': val.thumbnail});
+                            div.find(".bookmark-element-img").attr('src', val.thumbnail);
                         }
 
                         div.find(".bookmark-element-title").attr({'id': 'ti' + val.uri_id, 'title': val.title})

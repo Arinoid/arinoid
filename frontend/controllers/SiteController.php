@@ -479,20 +479,27 @@ class SiteController extends Controller
 
         $name = trim(Security::generateRandomKey(rand(4, 5)), '-') . '.png';
 
-        $command = "wkhtmltoimage --width 1440 --height 810 {$uri} {$name} && convert {$name} -resize 10% {$name}";
+        $command = "wkhtmltoimage -q --width 1440 --height 810 {$uri} {$name}";
 
         $process = new Process($command);
+        $process->setTimeout(90);
+        $process->run();
 
-        $process->start();
+        if (is_file($name)) {
+            $command = "convert {$name} -resize 10% {$name}";
 
-        while ($process->isRunning()) {
-            // waiting for process to finish
+            $process = new Process($command);
+            $process->run();
+        } else {
+            return null;
         }
 
+        $data = null;
         // Read the file
         $fp = fopen($name, 'r');
         $data = fread($fp, filesize($name));
         fclose($fp);
+
         unlink($name);
 
         return $data;
