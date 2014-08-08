@@ -479,7 +479,7 @@ class SiteController extends Controller
 
         $name = trim(Security::generateRandomKey(rand(4, 5)), '-') . '.png';
 
-        $command = "wkhtmltoimage -q --width 1440 --height 810 {$uri} {$name}";
+        $command = "wkhtmltoimage -q --width 1440 --height 810 '{$uri}' {$name}";
 
         $process = new Process($command);
         $process->setTimeout(90);
